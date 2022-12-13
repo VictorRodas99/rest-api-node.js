@@ -29,7 +29,7 @@ export const createUser = async data => {
 /**
  * 
  * @param { {condition: { data: string } } } condition
- * @returns { Promise<UserModel> | Promise<errorObject> | null } 
+ * @returns { Promise<UserModel> | Promise<errorObject> | Promise<null> } 
  */
 export const findUserBy = async condition => {
     try {

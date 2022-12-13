@@ -1,7 +1,7 @@
 import { createUser, findUserBy } from '../services/user.services.js'
 import { validateUserFields } from '../utils/validator.js'
 import bcrypt from 'bcrypt'
-//import jwt
+import { createToken } from '../utils/jwt.js'
 
 
 export const registerUser = async (req, res) => {
@@ -11,14 +11,14 @@ export const registerUser = async (req, res) => {
 
         const userExists = await findUserBy({ email })
 
-        if(userExists.error) {
-            res.status(503).json({
+        if(userExists != null && 'error' in userExists) {
+            return res.status(503).json({
                 error: 'Database Error'
             })
         }
 
         if(Boolean(userExists)) {
-            res.status(200).json({
+            return res.status(200).json({
                 message: 'Email already registered!'
             })
         }
@@ -29,11 +29,11 @@ export const registerUser = async (req, res) => {
             password: hashedPassword
         })
         
-        res.status(code).json({ message })
+        return res.status(code).json({ message })
 
 
     } catch (error) {
-        res.status(400).json({
+        return res.status(400).json({
             error: error.message
         })
     }
@@ -41,5 +41,45 @@ export const registerUser = async (req, res) => {
 
 
 export const loginUser = async (req, res) => {
-    
+    try {
+        const { name, email, password } = validateUserFields(req.body)
+        const user = await findUserBy({ email })
+
+        if(user != null && 'error' in user) {
+            return res.status(503).json({
+                error: 'Database Error'
+            })
+        }
+
+        if(!Boolean(user)) {
+            return res.json({
+                message: 'User not registered!'
+            })
+        }
+
+        const dbPassword = user.password
+        const match = await bcrypt.compare(password, dbPassword)
+
+        if(!match) {
+            return res.status(400).json({
+                message: 'Wrong email and password combination!'
+            })
+        }
+
+        const userToken = createToken(user)
+
+        res.cookie('access-token', userToken, {
+            maxAge: 2.592e+9,
+            httpOnly: true
+        })
+        
+        return res.json({
+            message: `Welcome ${name}!`
+        })
+
+    } catch (error) {
+        return res.status(400).json({
+            error: error.message
+        })
+    }
 }
