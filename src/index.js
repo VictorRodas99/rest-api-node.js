@@ -5,6 +5,7 @@ import { logger } from './middlewares/logger.js'
 import { db } from './configs/db.config.js'
 import * as dotenv from 'dotenv'
 import express from 'express'
+import cookieParser from 'cookie-parser'
 
 
 const app = express()
@@ -16,6 +17,7 @@ const PORT = process.env.PORT || 8000
 
 /* Middlewares */
 app.use(express.json())
+app.use(cookieParser())
 app.use(logger)
 
 
@@ -35,7 +37,7 @@ app.use((_req, res) => {
 db.sync().then(
     () => console.log('\nSuccessfully sync to the database!')
 ).catch(
-    error => console.error('Unable to connect to the database: ', error)
+    error => console.error('Unable to connect to the database:', error.message)
 )
 
 app.listen(PORT,
