@@ -1,5 +1,14 @@
-import { getDate } from '../utils/logger.tools.js'
+import { getDate } from '../utils/general.tools.js'
 
+/**
+ * @typedef { import('express').Request } Request
+ * @typedef { import('express').Response } Response
+ * @typedef { import('express').NextFunction } NextFunction
+ *
+ * @param { Request } req 
+ * @param { Response } res 
+ * @param { NextFunction } next 
+ */
 export function logger(req, res, next) {
     const fullDate = getDate()
     const { method, url, protocol, httpVersion, ip } = req
