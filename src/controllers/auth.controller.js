@@ -1,15 +1,17 @@
-import { createUser, findUserBy } from '../services/user.services.js'
-import { validateUserFields } from '../utils/validator.js'
 import bcrypt from 'bcrypt'
+import { User } from '../models/User.js'
 import { createToken } from '../utils/jwt.js'
-
+import { findBy } from '../services/general.services.js'
+import { createUser } from '../services/user.services.js'
+import { validateUserFields } from '../utils/validator.user.js'
+ 
 
 export const registerUser = async (req, res) => {
     try {
         const { name, email, password } = validateUserFields(req.body)
         const hashedPassword = await bcrypt.hash(password, 8)
 
-        const userExists = await findUserBy({ email })
+        const userExists = await findBy(User, { email })
 
         if(userExists != null && 'error' in userExists) {
             return res.status(503).json({
@@ -43,7 +45,7 @@ export const registerUser = async (req, res) => {
 export const loginUser = async (req, res) => {
     try {
         const { name, email, password } = validateUserFields(req.body)
-        const user = await findUserBy({ email })
+        const user = await findBy(User, { email })
 
         if(user != null && 'error' in user) {
             return res.status(503).json({
