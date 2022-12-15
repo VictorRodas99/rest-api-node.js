@@ -4,18 +4,13 @@ import jwt from 'jsonwebtoken'
 dotenv.config()
 
 export const guard = (req, res, next) => {
-    const response = { message: 'User not authenticatd' }
+    const response = { message: 'User not authenticated' }
 
-    if(req.cookies === undefined) {
+    if(!req.cookies || !('access-token' in req.cookies)) {
         return res.status(403).json(response)
     }
 
-    if(!('access-token' in req.cookies)) {
-        return res.status(403).json(response)
-    }
-
-    //TODO: change this
-    const userToken = Object.entries(req.cookies).filter(cookie => cookie[0] == 'access-token')[0][1]
+    const userToken = req.cookies['access-token']
 
     try {
        const isValid = jwt.verify(userToken, process.env.SECRET) 
