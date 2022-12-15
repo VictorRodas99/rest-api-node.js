@@ -44,15 +44,26 @@ const parsePassword = dirtyPassword => {
 
 /**
  * 
- * @param { any } dirtyData 
- * @returns { { name: string, email: string, password: string } } userData
+ * @param { any } dirtyData
+ * @param { boolean } login - If it sets in true, it doesn't validate the field 'name'
+ * @returns {{ name: string, email: string, password: string }  | { email: string, password: string }} userData
  */
-export const validateUserFields = dirtyData => {
-    
-    const data = {
-        name: parseName(dirtyData.name),
-        email: parseEmail(dirtyData.email),
-        password: parsePassword(dirtyData.password)
+export const validateUserFields = (dirtyData, login = false) => {
+    let data = {}
+
+    if(login) {
+        if('name' in dirtyData) throw new Error("The field 'name' is not required for login")
+
+        data = {
+            email: parseEmail(dirtyData.email),
+            password: parsePassword(dirtyData.password)
+        }
+    } else {
+        data = {
+            name: parseName(dirtyData.name),
+            email: parseEmail(dirtyData.email),
+            password: parsePassword(dirtyData.password)
+        }
     }
 
     return data

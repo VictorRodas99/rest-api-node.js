@@ -44,18 +44,18 @@ export const registerUser = async (req, res) => {
 
 export const loginUser = async (req, res) => {
     try {
-        const { name, email, password } = validateUserFields(req.body)
+        const { email, password } = validateUserFields(req.body, true)
         const user = await findBy(User, { email })
 
-        if(user != null && 'error' in user) {
-            return res.status(503).json({
-                error: 'Database Error'
+        if(!user) {
+            return res.status(404).json({
+                message: 'User not registered!'
             })
         }
 
-        if(!Boolean(user)) {
-            return res.json({
-                message: 'User not registered!'
+        if('error' in user) {
+            return res.status(503).json({
+                error: 'Database Error'
             })
         }
 
@@ -76,7 +76,7 @@ export const loginUser = async (req, res) => {
         })
         
         return res.json({
-            message: `Welcome ${name}!`
+            message: `Welcome ${user.name}!`
         })
 
     } catch (error) {
