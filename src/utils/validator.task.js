@@ -44,3 +44,18 @@ export const validateTaskFields = dirtyData => {
 
     return data
 }
+
+/**
+ * 
+ * @param { any } id 
+ * @returns { number } parsedId
+ */
+export const validateReqId = id => {
+    const parsedId = Number(id)
+
+    if(isNaN(parsedId) || parsedId <= 0) {
+        throw new Error('The id must be a positive number')
+    }
+
+    return parsedId
+}
