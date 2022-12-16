@@ -22,3 +22,19 @@ export const findBy = async (Model, condition, options = { all: false }) => {
         return { error }
     }
 }
+
+/**
+ * @typedef { Object } Model
+ * 
+ * @param { Model } Model 
+ * @param { { data: string } } condition 
+ * @returns { Promise<number> | Promise<{ error: any }> }
+ */
+export const deleteBy = async (Model, condition) => {
+    try {
+        const result = await Model.destroy({ where: condition })
+        return result
+    } catch (error) {
+        return { error }
+    }
+}
