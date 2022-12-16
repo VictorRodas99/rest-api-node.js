@@ -23,3 +23,23 @@ export const createTask = async data => {
         }
     }
 }
+
+/**
+ * 
+ * @param { Model } Model 
+ * @param { Object } fieldsData
+ * @param { { data: string } } condition 
+ * @returns { Promise<number> | Promise<{ error: any }> }
+ */
+export const updateTask = async (Model, fieldsData, condition) => {
+    try {
+        const [ result ] = await Model.update(fieldsData, {
+            where: condition
+        })
+
+        return result
+
+    } catch (error) {
+        return { error }
+    }
+}
