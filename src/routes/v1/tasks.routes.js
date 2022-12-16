@@ -2,7 +2,7 @@ import { Router } from 'express'
 import { guard } from '../../middlewares/guard.js'
 import {
     getTasks, getTaskById,
-    createTasks, updateTask,
+    createTasks, updateTasks,
     deleteTask
 } from '../../controllers/data.controller.js'
 
@@ -12,7 +12,7 @@ router
     .get('/tasks', guard, getTasks)
     .get('/tasks/:id', guard, getTaskById)
     .post('/tasks', guard, createTasks)
-    .put('/tasks/:id', guard, updateTask)
+    .put('/tasks/:id', guard, updateTasks)
     .delete('/tasks/:id', guard, deleteTask)
 
 
