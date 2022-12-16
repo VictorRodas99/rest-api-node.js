@@ -1,6 +1,6 @@
 import { Task } from '../models/Task.js'
-import { findBy } from '../services/general.services.js'
-import { createTask } from '../services/tasks.services.js'
+import { deleteBy, findBy } from '../services/general.services.js'
+import { createTask, updateTask } from '../services/tasks.services.js'
 import { validateTaskFields, validateReqId } from '../utils/validator.task.js'
 
 export const getTasks = async (req, res) => {
@@ -10,7 +10,7 @@ export const getTasks = async (req, res) => {
 
     return res.json({
         requestedAt: new Date(),
-        username: `${name}`,
+        username: name,
         email,
         totalTasks: tasks.length,
         totalCompleted: completedTasks.length,
@@ -68,11 +68,65 @@ export const createTasks = async (req, res) => {
     }
 }
 
-export const updateTask = async (req, res) => {
-    const { id } = req.params //TODO: validate id
-    res.send('TODO: update task')
+export const updateTasks = async (req, res) => {
+    try {
+        const idUser = req.session.id
+        const idTask = validateReqId(req.params.id)
+        const fieldsToUpdate = validateTaskFields(req.body, { allFields: false })
+
+        const result = await updateTask(Task, fieldsToUpdate, { id: idTask, user_id: idUser })
+
+        if(!result) {
+            return res.status(404).json({
+                message: `Task with id ${idTask} not found or given fields are the same that the original`,
+            })
+        }
+
+        if(typeof result === 'object' && 'error' in result) {
+            return res.status(503).json({
+                error: 'Database Error'
+            })
+        }
+
+        return res.json({
+            message: 'Successfull update!',
+            updatedAt: new Date(),
+            updatedFields: Object.keys(fieldsToUpdate)
+        })
+
+    } catch (error) {
+        res.status(400).json({
+            error: error.message
+        })
+    }
 }
 
 export const deleteTask = async (req, res) => {
-    res.send('TODO: delete task')
+    try {
+        const idUser = req.session.id
+        const idTask = validateReqId(req.params.id)
+
+        const result = await deleteBy(Task, { id: idTask, user_id: idUser })
+        
+        if(!result) {
+            return res.status(404).json({
+                message: `Task with id ${id} not found`
+            })
+        }
+
+        if(typeof result === 'object' && 'error' in result) {
+            return res.status(503).json({
+                error: 'Database Error'
+            })
+        }
+
+        return res.json({
+            message: `Task ${idTask} deleted!`
+        })
+
+    } catch (error) {
+        res.status(400).json({
+            error: error.message
+        })
+    }
 }
