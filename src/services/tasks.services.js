@@ -25,6 +25,7 @@ export const createTask = async data => {
 }
 
 /**
+ * @typedef { import('sequelize').Model } Model
  * 
  * @param { Model } Model 
  * @param { Object } fieldsData

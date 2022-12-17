@@ -5,9 +5,10 @@ dotenv.config()
 
 
 /**
+ * @typedef { import('sequelize').Model } Model
  * 
- * @param {UserModel} user 
- * @returns {string} jsonWebToken
+ * @param { Model } user 
+ * @returns { string } jsonWebToken
  */
 export const createToken = user => {
     const token = jwt.sign({

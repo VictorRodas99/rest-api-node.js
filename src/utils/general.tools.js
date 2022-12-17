@@ -7,7 +7,12 @@ export const isBoolean = data => {
 }
 
 
-// function for sorting fields in validator.tasks
+/**
+ * Function for sorting fields in validator.tasks
+ * @param { Array<string> } unsorted 
+ * @param { Array<string> } validOrder 
+ * @returns { Array<string> } sortedData
+ */
 export const sortFields = (unsorted, validOrder) => {
     const sorted = [...unsorted]
 
