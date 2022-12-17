@@ -4,14 +4,13 @@ import { createTask, updateTask } from '../services/tasks.services.js'
 import { validateTaskFields, validateReqId } from '../utils/validator.task.js'
 
 export const getTasks = async (req, res) => {
-    const { id, name, email } = req.session
+    const { id, name } = req.session
     const tasks = await findBy(Task, { user_id: id }, { all: true })
     const completedTasks = tasks.filter(task => task.completed)   
 
     return res.json({
         requestedAt: new Date(),
         username: name,
-        email,
         totalTasks: tasks.length,
         totalCompleted: completedTasks.length,
         tasks

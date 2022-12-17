@@ -17,7 +17,7 @@ export const guard = (req, res, next) => {
 
        if(isValid) {
             const { payload } = jwt.decode(userToken, { complete: true })
-            req.session = payload //{ id, email, name, lat }
+            req.session = payload //{ id, name, lat }
 
             return next()
        } else {

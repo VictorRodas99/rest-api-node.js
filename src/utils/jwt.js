@@ -8,12 +8,11 @@ dotenv.config()
  * @typedef { import('sequelize').Model } Model
  * 
  * @param { Model } user 
- * @returns { string } jsonWebToken
+ * @returns { never } jsonWebToken
  */
 export const createToken = user => {
     const token = jwt.sign({
         id: user.id,
-        email: user.email,
         name: user.name
     }, process.env.SECRET)
 
