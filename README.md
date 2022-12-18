@@ -1,30 +1,11 @@
 # REST-API with Node JS and Express js
 
 ## **Requirements** :mag:
-<div>
-
-<div style="display: flex; align-items: center; gap: .5rem">
-    <img src="./docs/imgs/node-js.png" width="10%">
-    <h3>
-        <a href="https://nodejs.org/en/">NodeJS</a>
-    </h3>
-</div>
-
-<div style="display: flex; align-items: center; gap: .5rem">
-    <img src="./docs/imgs/express-js-icon.png" width="10%">
-    <h3>
-        <a href="https://expressjs.com/es/">Express</a>
-    </h3>
-</div>
-
-<div style="display: flex; align-items: center; gap: .5rem">
-    <img src="./docs/imgs/mysql-icon.png" width="10%">
-    <h3>
-        <a href="https://dev.mysql.com/doc/">MySQL</a>
-    </h3>
-</div>
-
-</div>
+<p align="left">
+<a href="https://nodejs.org/en/" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/nodejs-colored.svg" width="36" height="36" alt="NodeJS" /></a>
+<a href="https://expressjs.com/" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/express-colored.svg" width="36" height="36" alt="Express" /></a>
+<a href="https://www.mysql.com/" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/mysql-colored.svg" width="36" height="36" alt="MySQL" /></a>
+</p>
 
 <br>
 
