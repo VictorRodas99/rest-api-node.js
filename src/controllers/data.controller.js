@@ -6,6 +6,13 @@ import { validateTaskFields, validateReqId } from '../utils/validator.task.js'
 export const getTasks = async (req, res) => {
     const { id, name } = req.session
     const tasks = await findBy(Task, { user_id: id }, { all: true })
+
+    if(typeof tasks === 'object' && 'error' in tasks) {
+        return res.status(503).json({
+            error: 'Database Error'
+        })
+    }
+
     const completedTasks = tasks.filter(task => task.completed)   
 
     return res.json({

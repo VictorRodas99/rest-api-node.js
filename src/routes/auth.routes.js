@@ -5,7 +5,11 @@ import { guard } from '../middlewares/guard.js'
 const router = Router()
 
 router
-    .get('/', (_req, res) => res.send('Welcome!'))
+    .get('/', (_req, res) => {
+        res.json({
+            message: 'Welcome!'
+        })
+    })
     .post('/register', registerUser)
     .post('/login', loginUser)
     .get('/logout', guard, logoutUser)
