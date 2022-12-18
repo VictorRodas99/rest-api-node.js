@@ -5,6 +5,7 @@ import { db } from './configs/db.config.js'
 import authRoutes from './routes/auth.routes.js'
 import { logger } from './middlewares/logger.js'
 import v2Routes from './routes/v2/base.routes.js'
+import { v1SwaggerDocs } from './middlewares/swagger.js'
 import v1TasksRoutes from './routes/v1/tasks.routes.js'
 
 
@@ -19,6 +20,7 @@ const PORT = process.env.PORT || 8000
 app.use(express.json())
 app.use(cookieParser())
 app.use(logger)
+v1SwaggerDocs(app)
 
 
 /* Endpoints */
