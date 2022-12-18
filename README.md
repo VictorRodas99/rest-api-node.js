@@ -28,6 +28,18 @@ cd rest-api-node.js
 npm install
 ```
 
+### __*Start the mysql server (Assuming it has already been installed mysql)*__
+_Linux_
+```bash
+sudo service mysql start
+```
+
+_Windows_
+```cmd
+"C:\Program Files\MySQL\MySQL Server 8.0\bin\mysqld.exe"
+"C:\Program Files\MySQL\MySQL Server 8.0\bin\mysql.exe" -u<username> -p
+```
+
 ### __*Run the server*__
 ```bash
 npm start
