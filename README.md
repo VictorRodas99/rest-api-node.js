@@ -23,6 +23,14 @@ git clone https://github.com/VictorRodas99/rest-api-node.js.git
 cd rest-api-node.js
 ```
 
+### __*Create an .env file in the root*__
+*Must contain this data inside*
+```
+DB_PASSWORD="<your_mysql_password>"
+PORT="8000"
+SECRET="<secret_token_for_jwt>"
+```
+
 ### __*Install dependencies*__
 ```bash
 npm install
@@ -37,7 +45,6 @@ sudo service mysql start
 _Windows_
 ```cmd
 "C:\Program Files\MySQL\MySQL Server 8.0\bin\mysqld.exe"
-"C:\Program Files\MySQL\MySQL Server 8.0\bin\mysql.exe" -u<username> -p
 ```
 
 ### __*Run the server*__
